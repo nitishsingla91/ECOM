@@ -1,0 +1,138 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "AmCart-Frontend": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/am-cart-frontend",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/assets/font-face/helvetica.css",
+              "src/assets/css/bootstrap.css",
+              "src/assets/css/vendor/validation-engine.css",
+              "src/assets/plugins//responsiveslides/responsiveslides.css",
+              "src/assets/css/style.css",
+              "src/assets/fonts/simple-line-icons.css",
+              "src/assets/fonts/elegant-icons.css"
+            ],
+            "scripts": [
+              "src/assets/js/modernizr-2.6.2.min.js",
+              "src/assets/js/jquery-1.11.0.min.js",
+              "src/assets/js/jquery-ui-1.10.4.custom.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/jquery.bxslider.min.js",
+              "src/assets/js/jquery-accessibleMegaMenu.js",
+              "src/assets/js/jquery.validationEngine.js",
+              "src/assets/js/jquery.validationEngine-en.js",
+              "src/assets/plugins/responsiveslides/responsiveslides.min.js",
+              "src/assets/js/fastclick.js",
+              "src/assets/js/plugins.js",
+              "src/assets/js/scripts.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "100kb",
+                  "maximumError": "300kb"
+                }
+              ]
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "AmCart-Frontend:build:production"
+            },
+            "development": {
+              "browserTarget": "AmCart-Frontend:build:development"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "AmCart-Frontend:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": [
+            ]
+          }
+        }
+      }
+    }
+  }
+}

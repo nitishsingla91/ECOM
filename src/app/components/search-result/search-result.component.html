@@ -1,0 +1,272 @@
+   <!-- page body content begin -->
+   <div class="pg-body">
+    <div class="container">
+       <div class="gap-30 hidden-xs"></div>
+       <div class="row">
+          <div class="col-md-9 col-md-push-3 cat-content">
+             <div class="cat-view-options" style="margin-top:0px">
+                <div class="row">
+                   <div class="col-md-4">
+                      <!-- <div class="row no-gutter form-group">
+                         <div class="col-md-4">
+                            <label class="cvo-label">Sort By</label>
+                         </div>
+                         <div class="col-md-8">
+                            <select class="form-control cvo-control s-styled hasCustomSelect" name="sortby">
+                               <option value="default">Default Sorting</option>
+                               <option value="price">Price</option>
+                               <option value="rating">Rating</option>
+                               <option value="popularity">Popularity</option>
+                            </select>
+                         </div>
+                      </div> -->
+                   </div>
+                   <div class="col-md-3 col-lg-2">
+                      <!-- <div class="row no-gutter form-group">
+                         <div class="col-md-6">
+                            <label class="cvo-label">Show</label>
+                         </div>
+                         <div class="col-md-6">
+                           <select  class="form-control cvo-control s-styled hasCustomSelect" ng-model="itemsPerPage">
+                              <option value="10">10</option>
+                              <option value="15">15</option>
+                              <option value="20">20</option>
+                           </select>
+                         </div>
+                      </div> -->
+                   </div>
+                   <div class="col-md-2 col-lg-2 cvo-availability-col">
+                      <!-- <div class="form-group">
+                         <select class="form-control cvo-control s-styled hasCustomSelect" name="avilability">
+                            <option value="">Avilability</option>
+                            <option value="available">Avilable</option>
+                            <option value="coming">Coming</option>
+                         </select>
+                      </div> -->
+                   </div>
+                   <div class="col-md-3 col-lg-4 text-right">
+                      <label class="cvo-label">View</label>
+                      <div class="cvo-view-type" role="tablist">
+                         <ul class="list-inline">
+                            <li class="active">
+                               <a href="#pl-grid" role="tab" data-toggle="tab" class="cvo-grid">
+                                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                      width="14px" height="14px" viewBox="0 0 50 50" xml:space="preserve">
+                                     <rect x="0" y="0" width="20" height="20"/>
+                                     <rect x="30" y="0" width="20" height="20"/>
+                                     <rect x="0" y="30" width="20" height="20"/>
+                                     <rect x="30" y="30" width="20" height="20"/>
+                                  </svg>
+                               </a>
+                            </li>
+                            <li>
+                               <a href="#pl-list" role="tab" data-toggle="tab" class="cvo-list">
+                                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                      width="14px" height="14px" viewBox="0 0 30.263 25.6" xml:space="preserve"
+                                     >
+                                     <rect width="7.732" height="6.398"/>
+                                     <rect y="9.6" width="7.732" height="6.4"/>
+                                     <rect y="19.199" width="7.732" height="6.398"/>
+                                     <rect x="10.933" y="9.602" width="19.33" height="6.4"/>
+                                     <rect x="10.933" y="19.199" width="19.33" height="6.4"/>
+                                     <rect x="10.933" width="19.33" height="6.4"/>
+                                  </svg>
+                               </a>
+                            </li>
+                         </ul>
+                      </div>
+                   </div>
+                </div>
+             </div> 
+             <!-- cat-view-options -->
+
+             <div class="cat-pagination">
+                <div class="row">
+                   <div class="col-sm-6">
+                      Items 1 to {{productCatalog.products?.length}} of {{productCatalog.total}} total
+                   </div>
+                   <div class="col-sm-6 text-right">
+                      <ul class="pagination">
+                         <li class="active"><a href="#">1</a></li>
+                         <li><a href="#">2</a></li>
+                         <li><a href="#">3</a></li>
+                         <li><a href="#">4</a></li>
+                         <li><a href="#">5</a></li>
+                         <li><a href="#"><i class="arrow_carrot-right"></i></a></li>
+                      </ul>
+                   </div>
+                </div>
+             </div>
+
+             
+             <div class="tab-content tab-no-style">
+               <div class="tab-pane fade in active" id="pl-grid">
+                  <div class="products-list">
+                     <div class="row">
+                        <div class="col-md-4 col-sm-6 pl-item" *ngFor="let product of productCatalog.products;let i = index;">
+                           <figure *ngFor="let image of product.images| slice:0:1;let j = index;">
+                              <a href="#" class="pl-w-backside">
+                                 <span *ngFor="let image of product.images| slice:0:1;let j = index;">
+                                    <img src="{{image.src}}" alt="">
+                                   </span>
+                                    <span class="pl-backside" *ngFor="let image of product.images| slice:1:2;let j = index;">
+                                       <img src="{{image.src}}" alt="">
+                                    </span>
+                              </a>
+                              <label class="pl-badge">-{{product.productDiscount}}</label>
+                              <figcaption>
+                                 <a href="#" class="pl-button pl-addcart" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-bag"></i></a>
+                                 <a href="#" class="pl-button pl-qview" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a>
+                                 <a href="#" class="pl-button pl-compare" data-toggle="tooltip" data-placement="top" title="Compare"><i class="arrow_left-right_alt"></i></a>
+                                 <a href="#" class="pl-button pl-wishlist" data-toggle="tooltip" data-placement="top" title="Add To Wish List"><i class="icon-heart"></i></a>
+                              </figcaption>
+                           </figure>
+                           <div class="pl-caption">
+                              <p class="pl-price-block">
+                                 <span class="pl-price-old">&#8377; {{product.price?.maxRetailPrice?.amount}}</span>
+                                 <span class="pl-price">&#8377; {{product.price?.sellingPrice?.amount}}</span>
+                              </p>
+                              <p class="pl-name">{{product.name}}</p>
+                              <span class="stars-rating stars-4"><span class="stars"></span></span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+                <!-- grid list -->
+                <div class="tab-pane fade" id="pl-list">
+                  <div class="products-listview">
+
+                     <div class="plv-item" *ngFor="let product of productCatalog.products;let i = index;">
+                        <div class="row no-gutter">
+                           <div class="col-sm-4 plv-image">
+                              <figure>
+                                 <a href="#" class="plv-w-backside">
+                                    <span *ngFor="let image of product.images| slice:0:1;let j = index;">
+                                    <img src="{{image.src}}" alt="">
+                                   </span>
+                                    <span class="plv-backside" *ngFor="let image of product.images| slice:1:2;let j = index;">
+                                       <img src="{{image.src}}" alt="">
+                                    </span>
+                                 </a>
+                              </figure>
+                           </div>
+                           <div class="col-sm-8">
+                              <div class="plv-body">
+                                 <div class="plv-header">
+                                    <div class="row">
+                                       <div class="col-xs-6 plv-title"><a href="#">{{product.name}}</a></div>
+                                       <div class="col-xs-6 plv-availability"><span class="plva-label" style="color: black;">Brand:</span> <span style="font-weight:bold;color: black">{{product.brand}}</span></div>
+                                    </div>
+                                 </div>
+                                 <div class="plv-price-block">
+                                    <span class="plv-price-old" style="text-decoration: line-through;">&#8377; {{product.price?.maxRetailPrice?.amount}}</span>
+                                    <span class="plv-price">&#8377; {{product.price?.sellingPrice?.amount}}</span>
+                                    <div class="plv-reviews-count" >Discount: <span style="font-weight:bold;">{{product.productDiscount}}</span></div>
+                                    <div class="plv-add-review">Color: <span style="font-weight:bold;">{{product.color}}</span></div>
+                                 </div>
+                                 <div class="plv-exerpt">
+                                    {{product.description}}
+                                 </div>
+                                 <div class="plv-buttons">
+                                    <a href="#" class="btn btn-sec-col"><i class="icon-bag"></i> Add to Cart</a>
+                                    <a href="#" class="btn btn-prim-col"><i class="icon-heart"></i> Add to Wishlist</a>
+                                    <a href="#" class="btn btn-prim-col"><i class="arrow_left-right_alt"></i> Add to Compare</a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+             <div class="cat-pagination">
+                <div class="row">
+                   <div class="col-sm-6">
+                      Items 1 to {{productCatalog.products?.length}} of {{productCatalog.total}} total
+                   </div>
+                   <div class="col-sm-6 text-right">
+                      <ul class="pagination">
+                         <li class="active"><a href="#">1</a></li>
+                         <li><a href="#">2</a></li>
+                         <li><a href="#">3</a></li>
+                         <li><a href="#">4</a></li>
+                         <li><a href="#">5</a></li>
+                         <li><a href="#"><i class="arrow_carrot-right"></i></a></li>
+                      </ul>
+                   </div>
+                </div>
+             </div>
+
+
+          </div> <!-- cat-content -->
+          <div class="col-md-3 col-md-pull-9 cat-sidebar">
+             <aside>
+
+                <div class="widget wg-filterslist">
+                   <h3 class="wg-title">Brands</h3>
+                   <div class="wg-body">
+                      <ul class="wgfl-list">
+                         <li *ngFor="let facet of facets?.agg_brand;let i = index;">
+                            <input [checked]="checkByBrands(facet?.name)"  id="brand-checkbox{{i}}" type="checkbox" name="checkbox" value="" class="stl" (change)="searchByBrands($event ,facet.name)">
+                            <label for="brand-checkbox{{i}}" class="stl"><span></span>{{facet.name}} <em class="wgfl-count">({{facet.quantity}})</em></label><br/>
+                         </li>
+                      </ul>
+                   </div>
+                </div> <!-- widget -->
+
+                <div class="widget wg-filterslist">
+                   <h3 class="wg-title">Product Types</h3>
+                   <div class="wg-body">
+                      <ul class="wgfl-list">
+                         <li *ngFor="let facet of facets?.agg_productType;let i = index;">
+                            <input [checked]="checkByTypes(facet?.name)" id="tag-checkbox{{i}}" type="checkbox" name="checkbox" value="" class="stl" (change)="searchByTypes($event ,facet.name)">
+                            <label for="tag-checkbox{{i}}" class="stl"><span></span>{{facet.name}} <em class="wgfl-count">({{facet.quantity}})</em> </label><br/>
+                         </li>
+                      </ul>
+                   </div>
+                </div> <!-- widget -->
+                
+                <div class="widget wg-filterslist">
+                   <h3 class="wg-title">Color</h3>
+                   <div class="wg-body">
+                      <ul class="wgfl-list">
+                         <li *ngFor="let facet of facets?.agg_color;let i = index;">
+                           <input [checked]="checkByColors(facet?.name)" id="color-checkbox{{i}}" type="checkbox" name="checkbox" value="" class="stl" (change)="searchByColors($event ,facet.name)">
+                           <label for="color-checkbox{{i}}" class="stl"><span></span> <em class="color-option dot {{facet.name | lowercase}}"></em> {{facet.name}} <em class="wgfl-count">({{facet.quantity}})</em></label><br/>
+                         </li>
+                      </ul>
+                   </div>
+                </div> <!-- widget -->
+
+                <div class="widget wg-filterslist">
+                  <h3 class="wg-title">Product Sizes</h3>
+                   <div class="wg-body">
+                      <ul class="wgfl-list">
+                         <li *ngFor="let facet of facets?.agg_productSizes;let i = index;">
+                            <input [checked]="checkBySizes(facet?.name)" id="zise-checkbox{{i}}" type="checkbox" name="checkbox" value=" " class="stl" (change)="searchBySizes($event ,facet.name)">
+                            <label for="zise-checkbox{{i}}" class="stl"><span></span>{{facet.name}} <em class="wgfl-count">({{facet.quantity}})</em></label><br/>
+                         </li>
+                      </ul>
+                </div>
+                </div>
+                
+                 <!-- widget -->
+                <div class="widget wg-filterslist">
+                  <h3 class="wg-title">Product Discounts</h3>
+                  <div class="wg-body">
+                     <ul class="wgfl-list">
+                        <li *ngFor="let facet of facets?.agg_productDiscount;let i = index;">
+                           <input [checked]="checkByDiscount(facet?.name)" id="discount-checkbox{{i}}" type="checkbox" name="checkbox" value=" " class="stl" (change)="searchByDiscount($event ,facet.name)">
+                           <label for="discount-checkbox{{i}}" class="stl"><span></span>{{facet.name}} <em class="wgfl-count">({{facet.quantity}})</em></label><br/>
+                        </li>
+                     </ul>
+                     </div>
+                  </div>
+             </aside>
+          </div> <!-- sidebar -->
+       </div>
+       <div class="gap-70"></div>
+    </div> <!-- container -->
+ </div> <!-- pg-body -->
