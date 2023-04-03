@@ -2,7 +2,7 @@ import { KeycloakConfig } from "keycloak-js";
 
 // Add here your keycloak setup infos
 const keycloakConfig: KeycloakConfig = {
-  url: 'http://localhost:8080',
+  url: 'http://34.71.104.109',
   realm: 'AMCart',
   clientId: 'amcart-frontend'
 };
@@ -10,5 +10,5 @@ const keycloakConfig: KeycloakConfig = {
 export const environment = {  
     production: true,
     keycloakConfig,
-    searchServiceUrl:'http://localhost:8081'
+    searchServiceUrl:'http://35.224.74.147'
 }
