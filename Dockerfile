@@ -2,5 +2,5 @@ FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/nginx.conf
 WORKDIR /usr/share/nginx/html
-EXPOSE 4200
+EXPOSE 8080
 COPY dist/am-cart-frontend .

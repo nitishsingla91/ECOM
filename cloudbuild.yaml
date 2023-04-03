@@ -1,27 +1,17 @@
 steps:
-- name: 'gcr.io/cloud-builders/npm@sha256:7386198807386449805314bea40ab8dcd98c1e98c991f1c3616c4ae85fb819e0'
-  args: [ 'install' ]
-- name: 'gcr.io/cloud-builders/npm@sha256:7386198807386449805314bea40ab8dcd98c1e98c991f1c3616c4ae85fb819e0'
-  args: [ 'run', 'build']
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/nagp2019-268310/frontend-image:v2', '.' ]
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/nagp2019-268310/frontend-image:v2']
-- name: 'gcr.io/cloud-builders/gke-deploy:stable'
-  args:
-  - run
-  - --filename=./manifests/
-  - --image=gcr.io/nagp2019-268310/frontend-image:v2
-  - --location=us-central1-a
-  - --cluster=amcartecom
-timeout: 660s
-tags: ['mytag1', 'mytag2']
+  - name: 'node'
+    entrypoint: 'npm'
+    args: [ 'install' ]
+  - name: 'node'
+    entrypoint: 'npm'
+    args: [ 'run', 'build']
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-t", "us-central1-docker.pkg.dev/nagp-amcart-rakesh/nagp-amcart-repo/amcart-frontend:v1", "."]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/nagp-amcart-rakesh/nagp-amcart-repo/amcart-frontend:v1']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['run', 'deploy', 'amcart-frontend', '--image', 'us-central1-docker.pkg.dev/nagp-amcart-rakesh/nagp-amcart-repo/amcart-frontend:v1', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
 images:
-- 'gcr.io/nagp2019-268310/frontend-image:v2'
-
-
-# steps:
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: [ 'build', '-t', 'us-west2-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo/quickstart-image:tag1', '.' ]
-# images:
-# - 'us-west2-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo/quickstart-image:tag1'
+- 'us-central1-docker.pkg.dev/nagp-amcart-rakesh/nagp-amcart-repo/amcart-frontend:v1'
+options:
+  logging: CLOUD_LOGGING_ONLY
