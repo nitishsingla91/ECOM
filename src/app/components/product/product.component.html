@@ -1,7 +1,7 @@
    <!-- page body content begin -->
    <div class="pg-body clearfix">
       <div class="container clearfix">
-         <div class="row">
+         <!-- <div class="row">
             <div class="container">
                <div class="col-xs-12 product-top-line">
                   <a href="category.html" class="btn btn-yet-col col-xs-2 back-catalog pull-left">BACK IN CATALOG</a>
@@ -11,7 +11,8 @@
                   </div>
                </div>
             </div>
-         </div>
+         </div> -->
+         <br/>
          <div class="row">
             <div class="col-md-6 col-lg-7 col-xs-12 product-images">
                <div class="clearfix zoom-content">
@@ -235,59 +236,34 @@
             <div class="col-md-6 col-lg-5 col-xs-12 product-info">
                <div id="zoom-window-container" style="position: relative;"></div>
                <div class="product-reviews">
-                  <h3>MAJESTIC BEECROFT</h3>
-                  <span class="stars-rating"><span class="stars"></span></span>
-                  <a href="#">20 Reviewer(s)</a><a href="#review-btn">Add Review</a>
+                  <h3>{{product.name}}</h3>
                </div>
                <img src="../../assets/images/brands/nike.png" alt="#" class="brand">
                <div class="hr"></div>
                <div class="price">
-                  $800.00
-                  <span class="old-price">$900.00</span>
+                  &#8377; {{product.price?.sellingPrice?.amount}}
+                  <span class="old-price">&#8377; {{product.price?.maxRetailPrice?.amount}}</span>
+                   50% Off
                </div>
                <p class="availability col-sm-pull-right col-xs-pull-left">Availability: <span><span class="in-stock"></span>In Stock</span></p>
                <div class="hr"></div>
-               <p class="data-info">Product Code: <span>156834</span></p>
-               <p class="data-info">Product Tags: <span>Clother, Fashion</span></p>
-               <p class="data-info">Category: <span>Mens Wear</span></p>
+               <p class="data-info">Product Code: <span>{{product.id}}</span></p>
+               <p class="data-info">Product Type: <span>{{product.productType}}</span></p>
+               <p class="data-info">Brand: <span>{{product.brand}}</span></p>
                <div class="hr"></div>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-               <div class="col-xs-12 tech-info">
-                  <div class="col-sm-4 col-xs-12">
-                     <span>100% Cotton</span>
-                     <span>50% Elastomultiester</span>
-                  </div>
-                  <div class="col-sm-4 col-xs-12">
-                     <span>Sit just below waist</span>
-                     <span>Slim fit  throught</span>
-                  </div>
-                  <div class="col-sm-4 col-xs-12">
-                     <span>Dry Clean</span>
-                     <span>Machine Wash Warm</span>
-                  </div>
-               </div>
+               <p>{{product.description}}</p>
                <div class="hr"></div>
-               <span class="data-info secondary-font-family">COLOR: <span>White</span></span>
-               &emsp;|&emsp;
-               <span class="availability">Availability: <span><span class="out-stock"></span>In Stock</span></span>
-               <div class="color-blocks">
-                  <div class="radio-inline color"><input type="radio" name="color" value="1" id="radio-color-1"><label for="radio-color-1" class="white"></label></div>
-                  <div class="radio-inline color"><input type="radio" name="color" value="2" id="radio-color-2"><label for="radio-color-2" class="peach"></label></div>
-                  <div class="radio-inline color"><input type="radio" name="color" value="3" id="radio-color-3"><label for="radio-color-3" class="blue"></label></div>
-                  <div class="radio-inline color"><input type="radio" name="color" value="4" id="radio-color-4"><label for="radio-color-4" class="orange"></label></div>
-                  <div class="radio-inline color"><input type="radio" name="color" value="5" id="radio-color-5"><label for="radio-color-5" class="yellow"></label></div>
-                  <div class="radio-inline color"><input type="radio" name="color" value="6" id="radio-color-6"><label for="radio-color-6" class="lime"></label></div>
-                  <div class="radio-inline color"><input type="radio" name="color" value="7" id="radio-color-7"><label for="radio-color-7" class="pink"></label></div>
-                  <div class="radio-inline color"><input type="radio" name="color" value="8" id="radio-color-8"><label for="radio-color-8" class="cherry"></label></div>
-               </div>
+               <p class="data-info" *ngFor="let attribute of product.attributes">{{attribute.name}}: <span>{{attribute.value}}</span></p>
+               <div class="hr"></div>
+               <span class="data-info secondary-font-family">COLOR: <span><em class="color-option dot {{product.color | lowercase}}"></em>{{product.color|titlecase }}</span></span>
+               &nbsp;  &nbsp; |  &nbsp; &nbsp;
+               <span class="availability">Available Quantity: <span>{{stock}}</span></span>
                <div class="hr"></div>
                <span class="data-info secondary-font-family">SELECT SIZE</span>
                <div class="size-blocks">
-                  <div class="radio-inline size"><input type="radio" name="size" value="1" id="radio-size-1"><label for="radio-size-1">XL</label></div>
-                  <div class="radio-inline size"><input type="radio" name="size" value="2" id="radio-size-2"><label for="radio-size-2">L</label></div>
-                  <div class="radio-inline size"><input type="radio" name="size" value="3" id="radio-size-3"><label for="radio-size-3">M</label></div>
-                  <div class="radio-inline size"><input type="radio" name="size" value="4" id="radio-size-4"><label for="radio-size-4">XS</label></div>
-                  <div class="radio-inline size"><input type="radio" name="size" value="5" id="radio-size-5"><label for="radio-size-5">S</label></div>
+                  <div class="radio-inline size" *ngFor="let sku of product.skus;let i = index;">
+                     <input (click)="setStock(sku.stock)" [checked]="i==0" type="radio" name="size" value="1" id="radio-size-{{i}}"><label for="radio-size-{{i}}">{{sku.size}}</label>
+                  </div>
                </div>
                <div class="hr"></div>
                <div class="cart_quantity_button clrfix product-count pull-left">
@@ -303,52 +279,24 @@
                   <!-- Nav tabs -->
                   <ul role="tablist" class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" role="tab" href="#tab-description">DESCRIPTION</a></li>
-                    <li><a data-toggle="tab" role="tab" href="#tab-additional-info">ADDITIONAL INFO</a></li>
-                    <li><a data-toggle="tab" role="tab" href="#tab-review" id="review-btn">REVIEWS</a></li>
+                    <li><a data-toggle="tab" role="tab" href="#tab-additional-info">SELLER INFO</a></li>
                   </ul>
 
                   <!-- Tab panes -->
                   <div class="tab-content">
                      <div id="tab-description" class="tab-pane active">
-                        <img alt="" src="../../assets/images/tab-1.jpg" class="alignleft">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia qui tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                        <p>{{product.description}}</p>
                      </div>
                      <div id="tab-additional-info" class="tab-pane">
-                        <p>Placerat sollicitudin. sit amet magna quam praesent in libero vel turpis pellentesque egestas sit amet vel nunc. Accumsan dolor ullamcorper est vitae sem ornare interdum. Cum sociis natoque penatibus et magnis Hendrerit ut faucibus sit amet, praesent in libero vel turpis Lorem ipsum dolor sit amet, consectetur adipiscing elit sapien ornare tempus venenatis ipsum nec ligula placerat sollicitudin. </p>
-                     </div>
-                     <div id="tab-review" class="tab-pane">
-                        <form action="#">
-                           <div class="row">
-                              <div class="col-md-6 col-xs-12">
-                                 <div class="form-group required"><label class="type-text">Name*<input type="text" class="form-control placeholder-fix"></label></div>
-                              </div>
-                              <div class="col-md-6 col-xs-12">
-                                 <div class="form-group required"><label class="type-text">Email*<input type="text" class="form-control placeholder-fix"></label></div>
-                              </div>
-                              <div class="col-xs-12">
-                                 <div class="you-rating">
-                                    <div class="data-info secondary-font-family">Your Rating</div>
-                                    <a href="#"><span class="stars-rating stars-1"><span class="stars"></span></span></a>
-                                    <a href="#"><span class="stars-rating stars-2"><span class="stars"></span></span></a>
-                                    <a href="#"><span class="stars-rating stars-3"><span class="stars"></span></span></a>
-                                    <a href="#"><span class="stars-rating stars-4"><span class="stars"></span></span></a>
-                                    <a href="#"><span class="stars-rating stars-5"><span class="stars"></span></span></a>
-                                 </div>
-                                 <div class="data-info secondary-font-family">Your Review</div>
-                                 <div class="required form-group">
-                                    <textarea class="form-control placeholder-fix" rows="4"></textarea>
-                                 </div>
-                                 <button type="submit" class="btn btn-lg btn-sec-col col-xs-12">SUBMIT REVIEW</button>
-                              </div>
-                           </div>
-                        </form>
+                        <p class="data-info">Seller Name : <span>{{product.sellerInfo?.name}}</span></p>
+                        <p class="data-info">Seller Address : <span>{{product.sellerInfo?.address}}</span></p>
                      </div>
                   </div>
                </div>
             </div>
          </div>
       </div>
-      <section>
+      <!-- <section>
          <div class="container best-product">
             <div class="col-xs-12"><h6>RELATED PRODUCTS</h6></div>
             <div class="gap-70"></div>
@@ -715,7 +663,7 @@
                </div>
             </div>
          </div>
-      </section>
+      </section> -->
 
       <div class="container">
          <div class="row subscribe">

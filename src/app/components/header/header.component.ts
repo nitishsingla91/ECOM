@@ -1,30 +1,38 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { KeycloakService } from 'keycloak-angular';
-import { KeycloakProfile } from 'keycloak-js';
 import { CategoryRoot } from 'src/app/common/interfaces.defs';
 import { ApiService } from 'src/app/services/api.service';
-declare function customScript():void;
+import * as $ from 'jquery'
+import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
+import { CookieService } from 'ngx-cookie-service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   public categories: CategoryRoot[]=[];
   public isLoggedIn:Boolean = false;
-  public userProfile :KeycloakProfile= {};
+  public userProfile : any= {};
   public searchText:string='';
   constructor(
     public restApi: ApiService, 
     public router: Router,
-    public keycloakService:KeycloakService)
+    private _service:AuthService)
   {}
   async ngOnInit() {
     this.loadCategories();
-    this.isLoggedIn = await this.keycloakService.isLoggedIn();
+    this.isLoggedIn = this._service.checkCredentials();    
+    let i = window.location.href.indexOf('code');
+    if(!this.isLoggedIn && i != -1){
+        this._service.retrieveToken(window.location.href.substring(i + 5));
+    }
     if(this.isLoggedIn){
-    this.userProfile = await this.keycloakService.loadUserProfile();
+      this._service.getResource(this._service.authServiceUrl+'userinfo').subscribe((data) => {
+           this.userProfile = data;
+      });
     }
   }
   // Get Categories
@@ -32,17 +40,17 @@ export class HeaderComponent implements OnInit {
     return this.restApi.getCategories().subscribe((data) => {
       this.categories = data;
     });
+    
   }
 
   keycloakLogin(){
     if (!this.isLoggedIn) {
-        this.keycloakService.login();
+      this._service.login();
     }
   }
 
   keycloakLogout(){
-    this.keycloakService.logout(window.location.origin);
-    this.keycloakService.clearToken();
+    this._service.logout();
   }
 
   search(){
@@ -54,7 +62,7 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  searchByCategory(category:any){
+  searchByCategory(category:any,id:string,index:any){
     this.router.navigate(
       ['/search'],
       { 
@@ -62,6 +70,8 @@ export class HeaderComponent implements OnInit {
       }
     );
     this.searchText = '';
+    // let att:string = '#'+id+index;
+    // $(att).removeClass('open , hover');
   }
 
 }

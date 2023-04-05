@@ -100,3 +100,12 @@ export interface SearchFacets{
    productSizes?:string[];
    productDiscounts?:string[];
 }
+
+
+export interface KeycloakConfig{
+   url?: string,
+   realm?: string,
+   clientId?: string,
+   redirectURI?: string
+}
+

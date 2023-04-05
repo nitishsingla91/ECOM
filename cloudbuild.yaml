@@ -10,7 +10,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/nagp-amcart-rakesh/nagp-amcart-repo/amcart-frontend:v1']
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run', 'deploy', 'amcart-frontend', '--image', 'us-central1-docker.pkg.dev/nagp-amcart-rakesh/nagp-amcart-repo/amcart-frontend:v1', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
+    args: ['run', 'deploy', 'amcart-frontend', '--image', 'us-central1-docker.pkg.dev/nagp-amcart-rakesh/nagp-amcart-repo/amcart-frontend:v1', '--region', 'us-central1', '--platform', 'managed']
 images:
 - 'us-central1-docker.pkg.dev/nagp-amcart-rakesh/nagp-amcart-repo/amcart-frontend:v1'
 options:

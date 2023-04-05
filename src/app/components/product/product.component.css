@@ -1,0 +1,69 @@
+.dot {
+    height: 15px;
+    width: 15px;
+    /* border-radius: 50%; */
+    display: inline-block;
+    margin-bottom: 3px;
+    margin-top: 0px;
+    margin-left: 2px;
+  }
+
+.white
+  {
+    background: white;
+  }
+
+  .orange
+  {
+    background: orange;
+  }
+
+  .green
+  {
+    background: green;
+  }
+
+  .blue
+  {
+    background: blue;
+  }
+
+  .yellow
+  {
+    background: yellow;
+  }
+
+  .silver
+  {
+    background: silver;
+  }
+
+  .brown
+  {
+    background: brown;
+  }
+
+  .grey
+  {
+    background: grey;
+  }
+
+  .black
+  {
+    background: black;
+  }
+
+  .purple
+  {
+    background: purple;
+  }
+
+  .pink
+  {
+    background: pink;
+  }
+
+  .red
+  {
+    background: red;
+  }

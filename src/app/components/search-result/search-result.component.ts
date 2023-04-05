@@ -63,15 +63,7 @@ constructor(
     let searchFacets={brands:this.brands,colors:this.colors,productDiscounts:this.productDiscount,productTypes:this.productType,productSizes:this.productSize};
     this.restApi.searchProducts(this.text,this.itemsPerPage,searchFacets).subscribe((data) => {
       this.productCatalog = {};
-      this.productCatalog = data;
-      // this.productCatalog.products?.forEach(s=>{
-      //   s.skus?.forEach(p=>{
-      //     console.log(p.size);
-      //     console.log(p.skuId);
-      //     console.log(p.stock);
-      //   })
-      // })
-      
+      this.productCatalog = data;      
     });
   }
 
@@ -189,6 +181,15 @@ constructor(
       value.forEach(v=>{
         this.searchQuery.append(k,v);
       })
+  }
+
+  navigateProductPage(productId:any){
+    this.router.navigate(
+      ['/product'],
+      { 
+        queryParams: { productId: productId}
+      }
+    );
   }
 
    

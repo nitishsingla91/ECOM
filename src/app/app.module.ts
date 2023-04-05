@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -12,9 +12,9 @@ import { ContactComponent } from './components/contact/contact.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { ProductComponent } from './components/product/product.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
-import { initializeKeycloak } from './init/keycloak-init.factory';
 import { FormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { JwtHelperService, JwtModule } from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
@@ -32,15 +32,13 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    KeycloakAngularModule,
-    FormsModule
+    FormsModule,
+     JwtModule.forRoot({
+      config: {
+      },
+    })
   ],
-  providers: [{
-    provide: APP_INITIALIZER,
-    useFactory: initializeKeycloak,
-    multi: true,
-    deps: [KeycloakService],
-  }],
+  providers: [CookieService,JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

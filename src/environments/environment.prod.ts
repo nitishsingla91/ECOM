@@ -1,14 +1,17 @@
-import { KeycloakConfig } from "keycloak-js";
+import { KeycloakConfig } from "src/app/common/interfaces.defs";
+
 
 // Add here your keycloak setup infos
 const keycloakConfig: KeycloakConfig = {
-  url: 'http://34.71.104.109',
+  url: 'http://localhost:8080',
   realm: 'AMCart',
-  clientId: 'amcart-frontend'
+  clientId: 'amcart-client',
+  redirectURI: 'http://localhost:4200'
 };
 
 export const environment = {  
     production: true,
     keycloakConfig,
-    searchServiceUrl:'http://35.224.74.147'
+    searchServiceUrl:'http://35.224.74.147',
+    authServiceUrl:'http://localhost:8083/auth/'
 }

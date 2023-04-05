@@ -105,7 +105,7 @@
                      <div class="row">
                         <div class="col-md-4 col-sm-6 pl-item" *ngFor="let product of productCatalog.products;let i = index;">
                            <figure *ngFor="let image of product.images| slice:0:1;let j = index;">
-                              <a href="#" class="pl-w-backside">
+                              <a (click) = "navigateProductPage(product.id)" class="pl-w-backside">
                                  <span *ngFor="let image of product.images| slice:0:1;let j = index;">
                                     <img src="{{image.src}}" alt="">
                                    </span>
@@ -141,7 +141,7 @@
                         <div class="row no-gutter">
                            <div class="col-sm-4 plv-image">
                               <figure>
-                                 <a href="#" class="plv-w-backside">
+                                 <a (click)="navigateProductPage(product.id)" class="plv-w-backside">
                                     <span *ngFor="let image of product.images| slice:0:1;let j = index;">
                                     <img src="{{image.src}}" alt="">
                                    </span>
@@ -234,7 +234,7 @@
                       <ul class="wgfl-list">
                          <li *ngFor="let facet of facets?.agg_color;let i = index;">
                            <input [checked]="checkByColors(facet?.name)" id="color-checkbox{{i}}" type="checkbox" name="checkbox" value="" class="stl" (change)="searchByColors($event ,facet.name)">
-                           <label for="color-checkbox{{i}}" class="stl"><span></span> <em class="color-option dot {{facet.name | lowercase}}"></em> {{facet.name}} <em class="wgfl-count">({{facet.quantity}})</em></label><br/>
+                           <label for="color-checkbox{{i}}" class="stl"><span></span> <em class="color-option dot {{facet.name | lowercase}}"></em> {{facet.name | titlecase }} <em class="wgfl-count">({{facet.quantity}})</em></label><br/>
                          </li>
                       </ul>
                    </div>
