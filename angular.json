@@ -103,8 +103,7 @@
               "browserTarget": "AmCart-Frontend:build:production"
             },
             "development": {
-              "browserTarget": "AmCart-Frontend:build:development",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "AmCart-Frontend:build:development"
             }
           },
           "defaultConfiguration": "production"
