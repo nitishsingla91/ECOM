@@ -30,8 +30,9 @@ export class HeaderComponent implements OnInit {
         this._service.retrieveToken(window.location.href.substring(i + 5));
     }
     if(this.isLoggedIn){
-      this._service.getResource(this._service.authServiceUrl+'userinfo').subscribe((data) => {
-           this.userProfile = data;
+      this._service.checkRefreshExpired();
+      this._service.getUserInfo()?.then(data =>{
+        this.userProfile = data;
       });
     }
   }
@@ -62,7 +63,7 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  searchByCategory(category:any,id:string,index:any){
+  searchByCategory(category:any){
     this.router.navigate(
       ['/search'],
       { 
@@ -70,8 +71,6 @@ export class HeaderComponent implements OnInit {
       }
     );
     this.searchText = '';
-    // let att:string = '#'+id+index;
-    // $(att).removeClass('open , hover');
   }
 
 }

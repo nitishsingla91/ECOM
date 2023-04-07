@@ -17,13 +17,15 @@ export class AuthService {
   public keycloakUrl:any =environment.keycloakConfig.url;
   public keycloakOpenidUrl:string = this.keycloakUrl+'/realms/'+this.realm+'/protocol/openid-connect/';
   public authServiceUrl:string = environment.authServiceUrl;
+  public userInfoUrl = this.authServiceUrl+'userinfo'
+  public userinfo = {};
 
   constructor(
     private _http: HttpClient,
     private cookieService: CookieService,
     private jwtHelper: JwtHelperService){}
 
-  retrieveToken(code: string){
+   retrieveToken(code: string){
     let params = new URLSearchParams();   
     params.append('code',code);
     params.append('redirectURI',this.redirectUri);
@@ -35,32 +37,40 @@ export class AuthService {
     ); 
   }
 
-  refreshToken(refresh_token: string){
+  async refreshToken(refresh_token: string,){
     let params = new URLSearchParams();   
     params.append('refreshToken',refresh_token);
     let headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8'});
-     this._http.post(this.authServiceUrl+"token/refresh", params.toString(), { headers: headers })
-    .subscribe(
-      data => this.saveTokenRefresh(data),
-      err => alert('Invalid Credentials')
-    ); 
+    const data:any = await this._http.post(this.authServiceUrl+"token/refresh", params.toString(), { headers: headers }).pipe(retry(1), catchError(this.handleError)).toPromise();
+    this.saveTokenRefresh(data);
+    return this.getKeycloakUser(data.access_token);
   }
 
-
-  getResource(resourceUrl:string) : Observable<any>{
-    let accessToken = this.cookieService.get('access_token');
+  checkRefreshExpired(){
     let refreshToken = this.cookieService.get('refresh_token');
-    let expireDate:any =  this.jwtHelper.getTokenExpirationDate(accessToken)?.valueOf();
     let refreshExpireDate:any =  this.jwtHelper.getTokenExpirationDate(refreshToken)?.valueOf();
     if(refreshExpireDate - new Date().valueOf() <= 0){
       this.logout();
-    }else if(expireDate - new Date().valueOf() <= 0){
-      this.refreshToken(refreshToken);
     }
-    var headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Bearer '+ this.cookieService.get('access_token') });
-    return this._http.get(resourceUrl, { headers: headers }).pipe(retry(1), catchError(this.handleError));
   }
 
+  getUserInfo(){
+    
+    let accessToken = this.cookieService.get('access_token');
+    let refreshToken = this.cookieService.get('refresh_token');
+    let expireDate:any =  this.jwtHelper.getTokenExpirationDate(accessToken)?.valueOf();
+    if(expireDate - new Date().valueOf() <= 0){
+      return this.refreshToken(refreshToken,);
+    }else{
+      return this.getKeycloakUser(this.cookieService.get('access_token'));
+    }
+  }
+
+  async getKeycloakUser(access_token:any){
+    var headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Bearer '+ access_token });
+    let data:any = await this._http.get(this.userInfoUrl, { headers: headers }).pipe(retry(1), catchError(this.handleError)).toPromise();
+    return data;
+  }
   checkCredentials(){
     return this.cookieService.check('access_token');
   } 

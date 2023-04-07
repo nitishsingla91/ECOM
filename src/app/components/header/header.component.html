@@ -323,13 +323,13 @@
                      <a href="#"><i class="icon-screen-desktop"></i> Home</a>
                   </li>
                   <li class="nav-item" *ngFor="let l1 of categories;let i = index;">
-                     <a id="top-menu-{{i}}"><span><i [ngClass]="l1.parent?.name === 'Men' ? 'icon-user' : 'icon-user-female'"></i> {{l1.parent?.name}}</span></a>
-                     <div class="sub-nav full padding" id="top-menu-{{i}}">
+                     <a><span><i [ngClass]="l1.parent?.name === 'Men' ? 'icon-user' : 'icon-user-female'"></i> {{l1.parent?.name}}</span></a>
+                     <div class="sub-nav full padding">
                         <div class="row">
                            <div class="col-md-3" *ngFor="let l2 of l1.childrens">
                               <h3 class="sub-nav-title">{{l2.parent?.name}}</h3>
                               <ul class="sub-nav-group sub-nav-grey" *ngFor="let l3 of l2.childrens">
-                                 <li><a (click)="searchByCategory(l3.path,'top-menu-',i)"><span>{{l3.name}}</span></a></li>
+                                 <li><a (click)="searchByCategory(l3.path)"><span>{{l3.name}}</span></a></li>
                               </ul>
                            </div>
                         </div>

@@ -30,7 +30,9 @@ export class SearchResultComponent implements OnInit {
   public productDiscount:string[]=[];
 
   public searchQuery = new URLSearchParams();
-
+  public paginationFrom = 0;
+  public productResults:any = 0;
+  public numberOfPages=0;
 
 
 constructor(
@@ -61,9 +63,13 @@ constructor(
 
   searchProducts(){
     let searchFacets={brands:this.brands,colors:this.colors,productDiscounts:this.productDiscount,productTypes:this.productType,productSizes:this.productSize};
-    this.restApi.searchProducts(this.text,this.itemsPerPage,searchFacets).subscribe((data) => {
+    this.restApi.searchProducts(this.text,this.itemsPerPage,this.paginationFrom,searchFacets).subscribe((data) => {
       this.productCatalog = {};
-      this.productCatalog = data;      
+      this.productCatalog = data; 
+      this.productResults = this.productCatalog.products?.length;
+      let size:any = this.productCatalog.total;
+      this.numberOfPages = (size/this.itemsPerPage);
+      this.numberOfPages = Math.ceil(Number(this.numberOfPages));
     });
   }
 
@@ -192,7 +198,18 @@ constructor(
     );
   }
 
-   
+   paginate(from:number){
+    this.paginationFrom = this.itemsPerPage * from;
+    this.searchProducts();
+    $('.pagination li').removeClass('active');
+    $('#page'+from).addClass('active');
+    $('#bottomPage'+from).addClass('active');
+    
+   }
+
+   numSequence(n: number): Array<number> {
+    return Array(n);
+  }
 }
 
 

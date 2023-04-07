@@ -33,12 +33,13 @@ getProduct(id: any): Observable<Product> {
 }
 
 
-searchProducts(text: string, size:number,searchFacets:SearchFacets): Observable<ProductCatalog> {
+searchProducts(text: string, size:number,from:number,searchFacets:SearchFacets): Observable<ProductCatalog> {
   const url = this.apiURL+'/product/search';
 
   let queryParams:HttpParams = new HttpParams();
   queryParams = queryParams.set("text",text);
   queryParams = queryParams.set("size",size);
+  queryParams = queryParams.set("from",from);
 
   for(let index in searchFacets.brands){
     let i = new Number(index).valueOf();

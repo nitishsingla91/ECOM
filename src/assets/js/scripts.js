@@ -542,7 +542,7 @@ $('.vertical-bx-1').each(function(){
 
 })(window, jQuery);
 
-$('.thumbnails-carousel').thumbnailsCarousel();
+// $('.thumbnails-carousel').thumbnailsCarousel();
 
 
 

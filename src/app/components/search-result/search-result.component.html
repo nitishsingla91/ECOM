@@ -80,19 +80,16 @@
              </div> 
              <!-- cat-view-options -->
 
-             <div class="cat-pagination">
+             <div class="cat-pagination" *ngIf="!(productResults==0)">
                 <div class="row">
                    <div class="col-sm-6">
                       Items 1 to {{productCatalog.products?.length}} of {{productCatalog.total}} total
                    </div>
                    <div class="col-sm-6 text-right">
                       <ul class="pagination">
-                         <li class="active"><a href="#">1</a></li>
-                         <li><a href="#">2</a></li>
-                         <li><a href="#">3</a></li>
-                         <li><a href="#">4</a></li>
-                         <li><a href="#">5</a></li>
-                         <li><a href="#"><i class="arrow_carrot-right"></i></a></li>
+                         <li [ngClass]="i== 0?'active':''" id="page{{i}}" *ngFor="let n of numSequence(numberOfPages);
+                         let i = index;"><a (click)="paginate(i)">{{i+1}}</a></li>
+                         <!-- <li><a href="#"><i class="arrow_carrot-right"></i></a></li> -->
                       </ul>
                    </div>
                 </div>
@@ -181,23 +178,21 @@
                </div>
             </div>
 
-             <div class="cat-pagination">
-                <div class="row">
-                   <div class="col-sm-6">
-                      Items 1 to {{productCatalog.products?.length}} of {{productCatalog.total}} total
-                   </div>
-                   <div class="col-sm-6 text-right">
-                      <ul class="pagination">
-                         <li class="active"><a href="#">1</a></li>
-                         <li><a href="#">2</a></li>
-                         <li><a href="#">3</a></li>
-                         <li><a href="#">4</a></li>
-                         <li><a href="#">5</a></li>
-                         <li><a href="#"><i class="arrow_carrot-right"></i></a></li>
-                      </ul>
-                   </div>
-                </div>
-             </div>
+
+             <div class="cat-pagination" *ngIf="!(productResults==0)">
+               <div class="row">
+                  <div class="col-sm-6">
+                     Items 1 to {{productCatalog.products?.length}} of {{productCatalog.total}} total
+                  </div>
+                  <div class="col-sm-6 text-right">
+                     <ul class="pagination">
+                        <li [ngClass]="i== 0?'active':''" id="bottomPage{{i}}" *ngFor="let n of numSequence(numberOfPages);
+                        let i = index;"><a (click)="paginate(i)">{{i+1}}</a></li>
+                        <!-- <li><a href="#"><i class="arrow_carrot-right"></i></a></li> -->
+                     </ul>
+                  </div>
+               </div>
+            </div>
 
 
           </div> <!-- cat-content -->

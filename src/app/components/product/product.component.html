@@ -1,8 +1,8 @@
    <!-- page body content begin -->
    <div class="pg-body clearfix">
       <div class="container clearfix">
-         <!-- <div class="row">
-            <div class="container">
+         <div class="row">
+            <!-- <div class="container">
                <div class="col-xs-12 product-top-line">
                   <a href="category.html" class="btn btn-yet-col col-xs-2 back-catalog pull-left">BACK IN CATALOG</a>
                   <div class="pull-right">
@@ -10,8 +10,8 @@
                      <div class="next-product"><img src="../../assets/images/prd-2.jpg" alt="#"><span class="arrow_carrot-right"></span></div>
                   </div>
                </div>
-            </div>
-         </div> -->
+            </div> -->
+         </div>
          <br/>
          <div class="row">
             <div class="col-md-6 col-lg-7 col-xs-12 product-images">
@@ -175,38 +175,18 @@
                     </div>
                   </div>
 
-                  <div class="clearfix big-image product-page">
+                  <div class="clearfix big-image product-page" *ngFor="let image of product.images| slice:0:1;let j = index;">
 
-                     <img id="zoom_03" src="../../assets/images/product_page_gallery/1-big.jpg" data-zoom-image="../../assets/images/product_page_gallery/1-big-3x.jpg" alt=""/> 
+                     <img id="zoom_03" src="{{image.src}}" data-zoom-image="../../assets/images/product_page_gallery/1-big-3x.jpg" alt=""/> 
 
                   </div>
                   <br/>
                   <div class="clearfix thumbnails">
                      <ul id="thumblist" class="clearfix" >
 
-                        <li>
-                           <a  href="#" class="elevatezoom-gallery zoomThumbActive" data-update=""  data-image="../../assets/images/product_page_gallery/1-big.jpg" data-zoom-image="../../assets/images/product_page_gallery/1-big-3x.jpg">
-                              <img src="../../assets/images/product_page_gallery/1-small.jpg" width="100" alt="" />
-                           </a>
-                        </li>
-                        <li>
-                          <a  href="#" class="elevatezoom-gallery zoomThumbActive" data-update=""  data-image="../../assets/images/product_page_gallery/2-big.jpg" data-zoom-image="../../assets/images/product_page_gallery/2-big-3x.jpg">
-                             <img src="../../assets/images/product_page_gallery/2-small.jpg" width="100" alt="" />
-                          </a>
-                        </li>
-                        <li>
-                       <a  href="#" class="elevatezoom-gallery zoomThumbActive" data-update=""  data-image="../../assets/images/product_page_gallery/1-big.jpg" data-zoom-image="../../assets/images/product_page_gallery/1-big-3x.jpg">
-                          <img src="../../assets/images/product_page_gallery/1-small.jpg" width="100" alt="" />
-                       </a>
-                        </li>
-                        <li>
-                       <a  href="#" class="elevatezoom-gallery zoomThumbActive" data-update=""  data-image="../../assets/images/product_page_gallery/1-big.jpg" data-zoom-image="../../assets/images/product_page_gallery/1-big-3x.jpg">
-                          <img src="../../assets/images/product_page_gallery/1-small.jpg" width="100" alt="" />
-                       </a>
-                        </li>
-                        <li>
-                           <a  href="#" class="elevatezoom-gallery zoomThumbActive" data-update=""  data-image="../../assets/images/product_page_gallery/1-big.jpg" data-zoom-image="../../assets/images/product_page_gallery/1-big-3x.jpg">
-                              <img src="../../assets/images/product_page_gallery/1-small.jpg" width="100" alt="" />
+                        <li *ngFor="let image of product.images;let j = index;">
+                           <a class="elevatezoom-gallery zoomThumbActive" data-update=""  data-image="../../assets/images/product_page_gallery/1-big.jpg" data-zoom-image="../../assets/images/product_page_gallery/1-big-3x.jpg">
+                              <img src="{{image.src}}" width="100" height="100" alt="" />
                            </a>
                         </li>
 

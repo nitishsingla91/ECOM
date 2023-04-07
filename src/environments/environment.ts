@@ -12,6 +12,6 @@ const keycloakConfig: KeycloakConfig = {
 export const environment = {  
     production: false,
     keycloakConfig,
-    searchServiceUrl:'http://localhost:8082',
-    authServiceUrl:'http://localhost:8082/auth/'
+    searchServiceUrl:'http://localhost:8081',
+    authServiceUrl:'http://localhost:8083/auth/'
 }
