@@ -1,5 +1,4 @@
 <header>
-
       <!-- top bar begin -->
       <div id="top-bar">
          <div class="container">
@@ -237,7 +236,10 @@
             <div class="row">
                <div class="col-md-3 top-search-box hidden-sm hidden-xs">
                      <div class="required form-group">
-                        <input  type="text" [(ngModel)]= "searchText" name="search_query" placeholder="Search" class="placeholder-fix top-search" autocomplete="off" (keydown.enter)="search()">
+                        <input id ="top-search-box-id" (keyup)="autocomplete($event)" type="text" [(ngModel)]= "searchText" name="search_query" placeholder="Search" class="placeholder-fix top-search" autocomplete="off" (keydown.enter)="search()" list="productSuggetionsId">
+                        <datalist id="productSuggetionsId" (click)="search()">
+                           <option  *ngFor="let item of productSuggetions" [value]="item">{{item}}</option>
+                         </datalist>
                         <button (click)="search()"><i class="icon_search field-icon"></i></button>
                      </div>
                </div>
@@ -343,8 +345,8 @@
                   </li>
 
                   <li class="nav-item">
-                     <a href="#"><span><i class="icon-cup"></i> Popular</span></a>
-                     <div class="sub-nav full padding">
+                     <a><span><i class="icon-cup"></i> Popular</span></a>
+                     <!-- <div class="sub-nav full padding">
                         <div class="megamenu-popular mmp-type-2 box-with-pager">
                            <ul class="vertical-bx-1">
                               <li>
@@ -418,7 +420,7 @@
                               </a>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
                   </li>
 
                   <li class="nav-item">

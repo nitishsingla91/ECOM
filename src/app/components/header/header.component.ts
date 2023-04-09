@@ -17,11 +17,14 @@ export class HeaderComponent implements OnInit {
   public isLoggedIn:Boolean = false;
   public userProfile : any= {};
   public searchText:string='';
+  productSuggetions: string[]= [];
   constructor(
     public restApi: ApiService, 
     public router: Router,
     private _service:AuthService)
-  {}
+  {
+    this.productSuggetions = [];
+  }
   async ngOnInit() {
     this.loadCategories();
     this.isLoggedIn = this._service.checkCredentials();    
@@ -61,6 +64,8 @@ export class HeaderComponent implements OnInit {
         queryParams: { text: this.searchText}
       }
     );
+    this.productSuggetions = [];
+    $('#top-search-box-id').blur();
   }
 
   searchByCategory(category:any){
@@ -71,6 +76,19 @@ export class HeaderComponent implements OnInit {
       }
     );
     this.searchText = '';
+    this.productSuggetions = [];
   }
 
+    fetchProductSuggetions(term:any){
+      this.productSuggetions = [];
+      this.restApi.getProductSuggestions(term,10).subscribe((data) => {
+        this.productSuggetions = data;
+      });
+  }
+
+  autocomplete(event:Event){
+   let term = $('#top-search-box-id').val();
+   this.fetchProductSuggetions(term);
+  }
+  
 }

@@ -74,6 +74,16 @@ getFacets(text: string, size:number): Observable<Facets> {
     .get<Facets>(this.apiURL + '/product/facets',{params:queryParams})
     .pipe(retry(1), catchError(this.handleError));
 }
+
+public getProductSuggestions(text: string, size:number): Observable<any> {
+  let queryParams = new HttpParams();
+  queryParams = queryParams.set('text',text);
+  queryParams = queryParams.set('size',size);
+  return this.http
+    .get<string[]>(this.apiURL + '/product/autocomplete',{params:queryParams})
+    .pipe(retry(1), catchError(this.handleError));
+}
+
 // Error handling
 handleError(error: any) {
   let errorMessage = '';

@@ -41,6 +41,7 @@ constructor(
   public router: Router,
   public location:Location){
   this.route.queryParams.subscribe(params => {
+      this.paginationFrom = 0;
       this.text = params['text']
       this.searchQuery = new URLSearchParams();
       this.searchQuery.append("text",this.text);
@@ -83,6 +84,8 @@ constructor(
   }
 
   searchByBrands(event:any,value:any){
+    this.paginationFrom = 0;
+    this.numberOfPages=0;
     if(event.target?.checked){
       this.brands.push(value);
       this.searchQuery.append(routeParams.BRANDS,value);
@@ -99,6 +102,8 @@ constructor(
   }
 
   searchByColors(event:any,value:any){
+    this.paginationFrom = 0;
+    this.numberOfPages=0;
     if(event.target?.checked){
       this.colors.push(value);
       this.searchQuery.append(routeParams.COLORS,value);
@@ -115,6 +120,8 @@ constructor(
   }
 
   searchByTypes(event:any,value:any){
+    this.paginationFrom = 0;
+    this.numberOfPages=0;
     if(event.target?.checked){
       this.productType.push(value);
       this.searchQuery.append(routeParams.PRODUCT_TYPE,value);
@@ -131,6 +138,8 @@ constructor(
   }
 
   searchByDiscount(event:any,value:any){
+    this.paginationFrom = 0;
+    this.numberOfPages=0;
     if(event.target?.checked){
       this.productDiscount.push(value);
       this.searchQuery.append(routeParams.PRODUCT_DISCOUNT,value);
@@ -147,6 +156,8 @@ constructor(
   }
 
   searchBySizes(event:any,value:any){
+    this.paginationFrom = 0;
+    this.numberOfPages=0;
     if(event.target?.checked){
       this.productSize.push(value);
       this.searchQuery.append(routeParams.PRODUCT_SIZE,value);

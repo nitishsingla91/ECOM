@@ -83,9 +83,9 @@
              <div class="cat-pagination" *ngIf="!(productResults==0)">
                 <div class="row">
                    <div class="col-sm-6">
-                      Items 1 to {{productCatalog.products?.length}} of {{productCatalog.total}} total
+                      Items {{paginationFrom+1}} to {{paginationFrom+productResults}} of {{productCatalog.total}} total
                    </div>
-                   <div class="col-sm-6 text-right">
+                   <div class="col-sm-6 text-right" *ngIf="numberOfPages > 1">
                       <ul class="pagination">
                          <li [ngClass]="i== 0?'active':''" id="page{{i}}" *ngFor="let n of numSequence(numberOfPages);
                          let i = index;"><a (click)="paginate(i)">{{i+1}}</a></li>
@@ -99,7 +99,7 @@
              <div class="tab-content tab-no-style">
                <div class="tab-pane fade in active" id="pl-grid">
                   <div class="products-list">
-                     <div class="row">
+                     <div class="row" style="margin-right:0;margin-left: 0;">
                         <div class="col-md-4 col-sm-6 pl-item" *ngFor="let product of productCatalog.products;let i = index;">
                            <figure *ngFor="let image of product.images| slice:0:1;let j = index;">
                               <a (click) = "navigateProductPage(product.id)" class="pl-w-backside">
@@ -182,9 +182,9 @@
              <div class="cat-pagination" *ngIf="!(productResults==0)">
                <div class="row">
                   <div class="col-sm-6">
-                     Items 1 to {{productCatalog.products?.length}} of {{productCatalog.total}} total
+                     Items {{paginationFrom+1}} to {{paginationFrom+productResults}} of {{productCatalog.total}} total
                   </div>
-                  <div class="col-sm-6 text-right">
+                  <div class="col-sm-6 text-right" *ngIf="numberOfPages > 1">
                      <ul class="pagination">
                         <li [ngClass]="i== 0?'active':''" id="bottomPage{{i}}" *ngFor="let n of numSequence(numberOfPages);
                         let i = index;"><a (click)="paginate(i)">{{i+1}}</a></li>
