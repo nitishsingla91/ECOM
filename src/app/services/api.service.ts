@@ -66,10 +66,32 @@ searchProducts(text: string, size:number,from:number,searchFacets:SearchFacets):
     .pipe(retry(1), catchError(this.handleError));
 }
 
-getFacets(text: string, size:number): Observable<Facets> {
+getFacets(text: string, size:number,searchFacets:SearchFacets): Observable<Facets> {
   let queryParams = new HttpParams();
   queryParams = queryParams.set('text',text);
   queryParams = queryParams.set('size',size);
+
+  for(let index in searchFacets.brands){
+    let i = new Number(index).valueOf();
+    queryParams = queryParams.append('brands',searchFacets?.brands[i]);
+  }
+  for(let index in searchFacets.colors){
+    let i = new Number(index).valueOf();
+    queryParams=queryParams.append('colors',searchFacets.colors[i]);
+  }
+  for(let index in searchFacets.productDiscounts){
+    let i = new Number(index).valueOf();
+    queryParams=queryParams.append('productDiscount',searchFacets.productDiscounts[i]);
+  }
+  for(let index in searchFacets.productSizes){
+    let i = new Number(index).valueOf();
+    queryParams=queryParams.append('productSize',searchFacets.productSizes[i]);
+  }
+  for(let index in searchFacets.productTypes){
+    let i = new Number(index).valueOf();
+    queryParams=queryParams.append('productType',searchFacets.productTypes[i]);
+  }
+  
   return this.http
     .get<Facets>(this.apiURL + '/product/facets',{params:queryParams})
     .pipe(retry(1), catchError(this.handleError));

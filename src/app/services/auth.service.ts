@@ -29,8 +29,8 @@ export class AuthService {
     let params = new URLSearchParams();   
     params.append('code',code);
     params.append('redirectURI',this.redirectUri);
-    let headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8'});
-     this._http.post(this.authServiceUrl+'token', params.toString(), { headers: headers })
+    let headers = new HttpHeaders({'Content-type': 'application/json; charset=utf-8'});
+     this._http.post(this.authServiceUrl+'token', {"code":code,"redirectURI":this.redirectUri}, { headers: headers })
     .subscribe(
       data => this.saveToken(data),
       err => alert('Invalid Credentials')
@@ -40,8 +40,8 @@ export class AuthService {
   async refreshToken(refresh_token: string,){
     let params = new URLSearchParams();   
     params.append('refreshToken',refresh_token);
-    let headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8'});
-    const data:any = await this._http.post(this.authServiceUrl+"token/refresh", params.toString(), { headers: headers }).pipe(retry(1), catchError(this.handleError)).toPromise();
+    let headers = new HttpHeaders({'Content-type': 'application/json; charset=utf-8'});
+    const data:any = await this._http.post(this.authServiceUrl+"token/refresh", {"refreshToken":refresh_token}, { headers: headers }).pipe(retry(1), catchError(this.handleError)).toPromise();
     this.saveTokenRefresh(data);
     return this.getKeycloakUser(data.access_token);
   }

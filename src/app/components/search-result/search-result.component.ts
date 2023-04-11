@@ -75,7 +75,8 @@ constructor(
   }
 
     getFacets(){
-      this.restApi.getFacets(this.text,this.itemsPerPage).subscribe((data) => {
+      let searchFacets={brands:this.brands,colors:this.colors,productDiscounts:this.productDiscount,productTypes:this.productType,productSizes:this.productSize};
+      this.restApi.getFacets(this.text,this.itemsPerPage,searchFacets).subscribe((data) => {
         this.facets = data;
         this.facets.agg_productSizes?.sort((a, b) => (new Number(a.name) < new Number(b.name)) ? -1 : 1);
         this.facets.agg_productDiscount?.sort((a, b) => (new Number(a.name?.replace('%','')) > new Number(b.name?.replace('%',''))) ? -1 : 1);
@@ -99,6 +100,7 @@ constructor(
     }
     this.location.go("/search",this.searchQuery.toString())
     this.searchProducts();
+    this.getFacets();
   }
 
   searchByColors(event:any,value:any){
@@ -117,6 +119,7 @@ constructor(
     }
     this.location.go("/search",this.searchQuery.toString())
     this.searchProducts();
+    this.getFacets();
   }
 
   searchByTypes(event:any,value:any){
@@ -135,6 +138,7 @@ constructor(
     }
     this.location.go("/search",this.searchQuery.toString())
     this.searchProducts();
+    this.getFacets();
   }
 
   searchByDiscount(event:any,value:any){
@@ -153,6 +157,7 @@ constructor(
     }
     this.location.go("/search",this.searchQuery.toString())
     this.searchProducts();
+    this.getFacets();
   }
 
   searchBySizes(event:any,value:any){
@@ -172,6 +177,7 @@ constructor(
     
     this.location.go("/search",this.searchQuery.toString())
     this.searchProducts();
+    this.getFacets();
   }
 
   checkByBrands(value:any):boolean{
